@@ -7,5 +7,3 @@ jobs:
     steps:
       - name: Display text
         run: echo "run!"
-
-        
