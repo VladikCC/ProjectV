@@ -7,3 +7,6 @@ jobs:
     steps:
       - name: Display text
         run: echo "run!"
+      - name: Commands
+        run: |
+          python -version
