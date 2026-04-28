@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snake</title>
+</head>
+<body>
+
+<h1>Snake Game</h1>
+<input id="name" placeholder="Your name">
+<button onclick="sendScore()">Send Score</button>
+
+<script>
+function sendScore() {
+    fetch("http://backend:8000/score", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            score: Math.floor(Math.random() * 100)
+        })
+    });
+}
+</script>
+
+</body>
+</html>

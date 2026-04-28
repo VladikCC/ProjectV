@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+
+  db:
+    image: postgres:15
+    container_name: projectv_db
+    restart: always
+    environment:
+      POSTGRES_USER: Vladik69
+      POSTGRES_PASSWORD: 445052518
+      POSTGRES_DB: ProjectV
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+
+  backend:
+    container_name: projectv_backend
+    restart: always
+    build: ./backend
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: ProjectV
+      DB_USER: Vladik69
+      DB_PASSWORD: 445052518
+    ports:
+      - 8000:8000
+  
+  frontend:
+    build: ./frontend
+    container_name: projectv_frontend
+    depends_on:
+      - backend
+    ports:
+      - 80:80
+volumes:
+  postgres_data:
