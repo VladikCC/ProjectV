@@ -1,12 +1,22 @@
 name: First workflow
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  first-run-command:
+  first-workflows:
     runs-on: ubuntu-latest
     steps:
-      - name: Display text
-        run: echo "run!"
-      - name: Commands
+      - name: Display path and file rep
         run: |
-          docker version
+          pwd
+          ls -a
+  second-workflows:
+    runs-on: ubuntu-latest
+    needs: first-workflows
+    steps:
+      - name: Upload prog
+        uses: actions/checkout@v6
+
+      - name: Check dir
+        run: |
+          ls -a
+          echo "completed"
