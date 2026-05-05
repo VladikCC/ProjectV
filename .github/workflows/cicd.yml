@@ -19,7 +19,12 @@ jobs:
       - name: Wait for services
         run: |
           echo $GITHUB_REF
-          sleep 15
+          sleep 30
+
+      - name: Check docker status
+        run: |
+          docker compose ps
+          docker compose logs backend
       
       - name: Test backend service
         run: curl --fail http://localhost:8000 || exit 1
