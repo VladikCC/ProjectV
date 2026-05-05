@@ -25,6 +25,7 @@ jobs:
         run: |
           docker compose ps
           docker compose logs backend
+          sleep 30
       
       - name: Test backend service
         run: curl --fail http://localhost:8000 || exit 1
