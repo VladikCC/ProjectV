@@ -28,7 +28,7 @@ jobs:
           sleep 30
       
       - name: Test backend service
-        run: curl --fail http://localhost:8000 || exit 1
+        run: curl --fail http://localhost:8000/scores || exit 1
 
       - name: Test frontend service
         run: curl --fail http://localhost:80 || exit 1
