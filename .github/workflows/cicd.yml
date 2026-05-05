@@ -1,22 +1,33 @@
-name: First workflow
+name: First ci-cd test
 on: [push, pull_request]
 
 jobs:
-  first-workflows:
+  test-step:
     runs-on: ubuntu-latest
     steps:
-      - name: Display path and file rep
-        run: |
-          pwd
-          ls -a
-  second-workflows:
-    runs-on: ubuntu-latest
-    needs: first-workflows
-    steps:
-      - name: Upload prog
+      - name: Copy project
         uses: actions/checkout@v6
 
-      - name: Check dir
+      - name: Test flake8
         run: |
-          ls -a
-          echo "completed"
+          pip install flake8
+          flake8 ./backend --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Build and Start
+        run: docker-compose up -d --build
+
+      - name: Wait for services
+        run: |
+          echo $GITHUB_REF
+          sleep 15
+      
+      - name: Test backend service
+        run: curl --fail http://localhost:8000 || exit 1
+
+      - name: Test frontend service
+        run: curl --fail http://localhost:80 || exit 1
+
+      - name: down docker
+        run: |
+          docker-compose down
+          echo "test complete wait Merge for admin"
