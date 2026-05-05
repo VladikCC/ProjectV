@@ -2,7 +2,7 @@
 
 ProjectV/
  ├── backend/
- │    └── Main.py(бэкэнд код)
+ │    └── main.py(бэкэнд код)
  │    └── Dockerfile(файл запускающий бэк часть через образ питона)
  │    └── requirements(txt файл где все зависимости бэкэнда)
  ├── frontend/
